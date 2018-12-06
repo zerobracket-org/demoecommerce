@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     SlideShowFragment slideShowFragment;
+    TopLayoutFragment topLayoutFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         slideShowFragment=new SlideShowFragment();
-        setFragment(slideShowFragment);
+        topLayoutFragment=new TopLayoutFragment();
+        setFragment(slideShowFragment,topLayoutFragment);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,9 +105,10 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void setFragment(Fragment fragment) {
+    private void setFragment(Fragment fragment1,Fragment fragment2) {
         FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame,fragment);
+        fragmentTransaction.replace(R.id.slide_show_frame,fragment1);
+        fragmentTransaction.replace(R.id.first_tab_frame,fragment2);
         fragmentTransaction.commit();
         //Toast.makeText(getApplicationContext(),fragment.toString(),Toast.LENGTH_SHORT).show();
     }

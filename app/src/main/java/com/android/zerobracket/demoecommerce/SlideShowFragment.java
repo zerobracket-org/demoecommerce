@@ -1,6 +1,7 @@
 package com.android.zerobracket.demoecommerce;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -83,6 +84,8 @@ public class SlideShowFragment extends Fragment implements BaseSliderView.OnSlid
     @Override
     public void onSliderClick(BaseSliderView slider) {
         Toast.makeText(getContext(),slider.getBundle().get("extra") + "",Toast.LENGTH_SHORT).show();
+        Intent intent= new Intent(getContext(),ItemDetailsViewActivity.class);
+        startActivity(intent);
     }
 
     @Override
