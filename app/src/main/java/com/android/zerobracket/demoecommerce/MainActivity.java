@@ -14,17 +14,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ExpandableListView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private DrawerLayout mDrawerLayout;
     SlideShowFragment slideShowFragment;
+    ExpandableListAdapter mMenuAdapter;
+    ExpandableListView expandableList;
+    List<ExpandedMenuModel> listDataHeader;
+    HashMap<ExpandedMenuModel, List<String>> listDataChild;
     TopLayoutFragment topLayoutFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         slideShowFragment=new SlideShowFragment();
         topLayoutFragment=new TopLayoutFragment();
@@ -38,14 +48,41 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        expandableList = findViewById(R.id.navigationmenu);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        if (navigationView != null) {
+            setupDrawerContent(navigationView);
+        }
+
+        prepareListData();
+        mMenuAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild, expandableList);
+
+        // setting list adapter
+        expandableList.setAdapter(mMenuAdapter);
+
+        expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                //Log.d("DEBUG", "submenu item clicked");
+                Toast.makeText(MainActivity.this, "Submenu item clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+        expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                //Log.d("DEBUG", "heading clicked");
+                Toast.makeText(MainActivity.this, "Group clicked", Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -56,6 +93,114 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+    private void setupDrawerContent(NavigationView navigationView) {
+        //revision: this don't works, use setOnChildClickListener() and setOnGroupClickListener() above instead
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        mDrawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
+    }
+    private void prepareListData() {
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
+
+        ExpandedMenuModel item1 = new ExpandedMenuModel();
+        item1.setIconName("HOME");
+        item1.setIconImg(R.drawable.ic_home);
+        // Adding data header
+        listDataHeader.add(item1);
+
+        ExpandedMenuModel item2 = new ExpandedMenuModel();
+        item2.setIconName("CATEGORIES");
+        item2.setIconImg(R.drawable.category);
+        listDataHeader.add(item2);
+
+        ExpandedMenuModel item3 = new ExpandedMenuModel();
+        item3.setIconName("SHOP");
+        item3.setIconImg(R.drawable.ic_shopping_cart);
+        listDataHeader.add(item3);
+
+        ExpandedMenuModel item4 = new ExpandedMenuModel();
+        item4.setIconName("MY ACCOUNT");
+        item4.setIconImg(R.drawable.ic_account_circle);
+        listDataHeader.add(item4);
+
+        ExpandedMenuModel item5 = new ExpandedMenuModel();
+        item5.setIconName("MY ORDERS");
+        item5.setIconImg(R.drawable.ic_assignment);
+        listDataHeader.add(item5);
+
+        ExpandedMenuModel item6 = new ExpandedMenuModel();
+        item6.setIconName("MY ADDRESSES");
+        item6.setIconImg(R.drawable.ic_place_black_24dp);
+        listDataHeader.add(item6);
+
+        ExpandedMenuModel item7 = new ExpandedMenuModel();
+        item7.setIconName("MY FAVORITES");
+        item7.setIconImg(R.drawable.ic_favorite_black_24dp);
+        listDataHeader.add(item7);
+
+        ExpandedMenuModel item8 = new ExpandedMenuModel();
+        item8.setIconName("CONTACT US");
+        item8.setIconImg(R.drawable.message_bulleted);
+        listDataHeader.add(item8);
+
+        ExpandedMenuModel item9 = new ExpandedMenuModel();
+        item9.setIconName("ABOUT");
+        item9.setIconImg(R.drawable.about);
+        listDataHeader.add(item9);
+
+        ExpandedMenuModel item19 = new ExpandedMenuModel();
+        item19.setIconName("SHARE APP");
+        item19.setIconImg(R.drawable.ic_share_black_24dp);
+        listDataHeader.add(item19);
+
+        ExpandedMenuModel item10 = new ExpandedMenuModel();
+        item10.setIconName("RATE APP");
+        item10.setIconImg(R.drawable.ic_stars_black_24dp);
+        listDataHeader.add(item10);
+
+        ExpandedMenuModel item11 = new ExpandedMenuModel();
+        item11.setIconName("SETTINGS");
+        item11.setIconImg(R.drawable.ic_settings_black_24dp);
+        listDataHeader.add(item11);
+
+        ExpandedMenuModel item12 = new ExpandedMenuModel();
+        item12.setIconName("LOGIN");
+        item12.setIconImg(R.drawable.ic_login);
+        listDataHeader.add(item12);
+
+        // Adding child data
+        List<String> heading1 = new ArrayList<String>();
+        heading1.add("HOME 1");
+        heading1.add("HOME 2");
+        heading1.add("HOME 3");
+        heading1.add("HOME 4");
+        heading1.add("HOME 5");
+
+        List<String> heading2 = new ArrayList<String>();
+        heading2.add("CATEGORY 1");
+        heading2.add("CATEGORY 2");
+        heading2.add("CATEGORY 3");
+        heading2.add("CATEGORY 4");
+        heading2.add("CATEGORY 5");
+        heading2.add("CATEGORY 6");
+
+        List<String> heading3 = new ArrayList<String>();
+        heading3.add("NEWEST ");
+        heading3.add("TOP DISHES ");
+        heading3.add("SUPER DEALS");
+        heading3.add("MOST LIKED");
+        listDataChild.put(listDataHeader.get(0), heading1);// Header, Child data
+        listDataChild.put(listDataHeader.get(1), heading2);
+        listDataChild.put(listDataHeader.get(2), heading3);
+
     }
 
     @Override
@@ -93,10 +238,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 
