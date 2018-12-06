@@ -54,7 +54,7 @@ public class SlideShowFragment extends Fragment implements BaseSliderView.OnSlid
         file_maps.put("SlideShow Demo1",R.drawable.slideshow1);
         file_maps.put("SlideShow Demo2",R.drawable.slideshow2);
         file_maps.put("SlideShow Demo3",R.drawable.slideshow1);
-        file_maps.put("SlideShow Demo4", R.drawable.slideshow2);
+        file_maps.put("SlideShow Demo4",R.drawable.slideshow2);
 
         for(String name : file_maps.keySet()){
             TextSliderView textSliderView = new TextSliderView(getContext());
