@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     List<ExpandedMenuModel> listDataHeader;
     HashMap<ExpandedMenuModel, List<String>> listDataChild;
     TopLayoutFragment topLayoutFragment;
+    BottomLayoutFragment bottomLayoutFragment;
 
     private TextView countTv;
     MenuItem cartIconMenuItem;
@@ -47,7 +48,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         setSupportActionBar(toolbar);
         slideShowFragment=new SlideShowFragment();
         topLayoutFragment=new TopLayoutFragment();
-        setFragment(slideShowFragment,topLayoutFragment);
+        bottomLayoutFragment=new BottomLayoutFragment();
+        setFragment(slideShowFragment,topLayoutFragment,bottomLayoutFragment);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         expandableList = findViewById(R.id.navigationmenu);
@@ -263,10 +265,11 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         return true;
     }
 
-    private void setFragment(Fragment fragment1,Fragment fragment2) {
+    private void setFragment(Fragment fragment1,Fragment fragment2,Fragment fragment3) {
         FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.slide_show_frame,fragment1);
         fragmentTransaction.replace(R.id.first_tab_frame,fragment2);
+        fragmentTransaction.replace(R.id.second_tab_frame,fragment3);
         fragmentTransaction.commit();
         //Toast.makeText(getApplicationContext(),fragment.toString(),Toast.LENGTH_SHORT).show();
     }

@@ -59,7 +59,7 @@ public class SlideShowFragment extends Fragment implements BaseSliderView.OnSlid
             textSliderView
                     .description(name)
                     .image(file_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
+                    .setScaleType(BaseSliderView.ScaleType.CenterInside)
                     .setOnSliderClickListener(this);
 
             //add your extra information
@@ -69,7 +69,7 @@ public class SlideShowFragment extends Fragment implements BaseSliderView.OnSlid
 
             mDemoSlider.addSlider(textSliderView);
         }
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Tablet);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(4000);

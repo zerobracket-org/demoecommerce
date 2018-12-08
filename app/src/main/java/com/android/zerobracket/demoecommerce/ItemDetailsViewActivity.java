@@ -8,6 +8,6 @@ public class ItemDetailsViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_slide_show);
+        setContentView(R.layout.itemdetailsview);
     }
 }
