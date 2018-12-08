@@ -15,14 +15,11 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch (position)
         {
             case 0:
-                TopProductsFragment topProductsFragment= new TopProductsFragment();
-                return topProductsFragment;
+                return new TopProductsFragment();
             case 1:
-                MostViewedFragment mostViewedFragment= new MostViewedFragment();
-                return mostViewedFragment;
+                return new MostViewedFragment();
             case 2:
-                MostLikedFragment mostLikedFragment= new MostLikedFragment();
-                return mostLikedFragment;
+                return new MostLikedFragment();
 
                 default:
                     return null;
@@ -33,10 +30,8 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
         {
             case 0:
                 return "Top Products";
-
             case 1:
                 return "Most Viewed";
-
             case 2:
                 return "Most Liked";
 

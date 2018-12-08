@@ -1,8 +1,10 @@
 package com.android.zerobracket.demoecommerce;
 
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -15,13 +17,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
     SlideShowFragment slideShowFragment;
     ExpandableListAdapter mMenuAdapter;
@@ -29,6 +32,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     List<ExpandedMenuModel> listDataHeader;
     HashMap<ExpandedMenuModel, List<String>> listDataChild;
     TopLayoutFragment topLayoutFragment;
+
+    private TextView countTv;
+    MenuItem cartIconMenuItem;
+    private int mCount = 0;
+    private ArrayList<String> productList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +48,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         slideShowFragment=new SlideShowFragment();
         topLayoutFragment=new TopLayoutFragment();
         setFragment(slideShowFragment,topLayoutFragment);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         expandableList = findViewById(R.id.navigationmenu);
@@ -62,10 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         prepareListData();
         mMenuAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild, expandableList);
-
-        // setting list adapter
         expandableList.setAdapter(mMenuAdapter);
-
         expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
@@ -205,8 +203,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        cartIconMenuItem = menu.findItem(R.id.cart_count_menu_item);
+        MenuItem search = menu.findItem(R.id.search);
+        search.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+
+        View actionView = cartIconMenuItem.getActionView();
+        View cartImageButtonwMenuItem;
+        if (actionView != null) {
+            countTv = actionView.findViewById(R.id.count_tv);
+            cartImageButtonwMenuItem = actionView.findViewById(R.id.cart_ic_image);
+            cartImageButtonwMenuItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    /*Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                    startActivity(intent);*/
+                }
+            });
+        }
         return true;
     }
 
@@ -218,10 +239,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

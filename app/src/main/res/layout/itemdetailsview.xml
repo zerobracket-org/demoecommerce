@@ -17,7 +17,7 @@
             android:layout_margin="8dp"
             android:paddingTop="100dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/cakedarkforest2" />
+            android:src="@drawable/cakedarkforest" />
 
         <TextView
             android:id="@+id/tvItemName"
