@@ -61,7 +61,6 @@ public class ItemDetailsViewActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
     public void btnAddToCartClicked(View view) {
 
         MainActivity.mCount += 1;
