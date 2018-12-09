@@ -31,7 +31,7 @@ public class TopProductsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
 
-        TopProductsAdapter adapter = new TopProductsAdapter();
+        TopProductsAdapter adapter = new TopProductsAdapter(getContext());
         recyclerView.setAdapter(adapter);
         return view;
     }

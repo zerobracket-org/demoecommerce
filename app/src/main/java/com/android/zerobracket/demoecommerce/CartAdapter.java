@@ -1,3 +1,4 @@
+
 package com.android.zerobracket.demoecommerce;
 
 import android.content.Context;
@@ -11,36 +12,30 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class TopProductsAdapter extends RecyclerView.Adapter<TopProductsAdapter.ViewHolder> {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private Context context;
 
-    TopProductsAdapter(Context context){
+    CartAdapter(Context context) {
         this.context = context;
     }
 
     @NonNull
     @Override
-    public TopProductsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public CartAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.carditemview, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cart_item, viewGroup, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TopProductsAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull CartAdapter.ViewHolder viewHolder, int i) {
 
-        viewHolder.itemImage.setOnClickListener(detailsListener);
+       /* viewHolder.itemImage.setOnClickListener(detailsListener);
         viewHolder.tvItemName.setOnClickListener(detailsListener);
-        viewHolder.tvprice.setOnClickListener(detailsListener);
-
-        viewHolder.btnAddItemToCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        viewHolder.tvprice.setOnClickListener(detailsListener);*/
 
     }
+
     private View.OnClickListener detailsListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -60,16 +55,10 @@ public class TopProductsAdapter extends RecyclerView.Adapter<TopProductsAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemImage = itemView.findViewById(R.id.itemImage);
+            /*itemImage = itemView.findViewById(R.id.itemImage);
             tvItemName = itemView.findViewById(R.id.tvItemName);
             tvprice = itemView.findViewById(R.id.tvprice);
-            btnAddItemToCart = itemView.findViewById(R.id.btnAddItemToCart);
+            btnAddItemToCart = itemView.findViewById(R.id.btnAddItemToCart);*/
         }
     }
-
-    // Container Activity must implement this interface
-    public interface OnHeadlineSelectedListener {
-        public void onArticleSelected();
-    }
-
 }

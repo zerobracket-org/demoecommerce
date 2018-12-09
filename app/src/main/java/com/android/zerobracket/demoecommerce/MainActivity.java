@@ -1,25 +1,22 @@
 package com.android.zerobracket.demoecommerce;
 
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +24,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+                , TopProductsAdapter.OnHeadlineSelectedListener{
     private DrawerLayout mDrawerLayout;
     SlideShowFragment slideShowFragment;
     ExpandableListAdapter mMenuAdapter;
@@ -44,6 +42,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     ViewPager viewPager;
     SectionsPagerAdapter sectionsPagerAdapter;
     TabLayout tabLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,14 +50,14 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        tabLayout= findViewById(R.id.nobar);
+        tabLayout = findViewById(R.id.nobar);
 
-        sectionsPagerAdapter= new SectionsPagerAdapter(getSupportFragmentManager());//creates sections for the element to view viewpager
+        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());//creates sections for the element to view viewpager
         tabLayout.setTabsFromPagerAdapter(sectionsPagerAdapter);
-        slideShowFragment=new SlideShowFragment();
-        topLayoutFragment=new TopLayoutFragment();
-        bottomLayoutFragment=new BottomLayoutFragment();
-        setFragment(slideShowFragment,topLayoutFragment,bottomLayoutFragment);
+        slideShowFragment = new SlideShowFragment();
+        topLayoutFragment = new TopLayoutFragment();
+        bottomLayoutFragment = new BottomLayoutFragment();
+        setFragment(slideShowFragment, topLayoutFragment, bottomLayoutFragment);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         expandableList = findViewById(R.id.navigationmenu);
@@ -103,6 +102,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             super.onBackPressed();
         }
     }
+
     private void setupDrawerContent(NavigationView navigationView) {
         //revision: this don't works, use setOnChildClickListener() and setOnGroupClickListener() above instead
         navigationView.setNavigationItemSelectedListener(
@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                     }
                 });
     }
+
     private void prepareListData() {
         listDataHeader = new ArrayList<>();
         listDataChild = new HashMap<>();
@@ -234,8 +235,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
             cartImageButtonwMenuItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /*Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                    startActivity(intent);*/
+                    Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                    startActivity(intent);
                 }
             });
         }
@@ -274,12 +275,17 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         return true;
     }
 
-    private void setFragment(Fragment fragment1,Fragment fragment2,Fragment fragment3) {
-        FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.slide_show_frame,fragment1);
-        fragmentTransaction.replace(R.id.first_tab_frame,fragment2);
-        fragmentTransaction.replace(R.id.second_tab_frame,fragment3);
+    private void setFragment(Fragment fragment1, Fragment fragment2, Fragment fragment3) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.slide_show_frame, fragment1);
+        fragmentTransaction.replace(R.id.first_tab_frame, fragment2);
+        fragmentTransaction.replace(R.id.second_tab_frame, fragment3);
         fragmentTransaction.commit();
         //Toast.makeText(getApplicationContext(),fragment.toString(),Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onArticleSelected() {
+        Log.d("App", "onArticleSelected: "+"rasel");
     }
 }
