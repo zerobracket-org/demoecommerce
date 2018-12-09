@@ -19,27 +19,27 @@ class SectionsPagerAdapter2 extends FragmentPagerAdapter {
         switch (position)
         {
             case 0:
-                TopProductsFragment topProductsFragment= new TopProductsFragment();
-                return topProductsFragment;
+                AllProductsFragment allProductsFragment= new AllProductsFragment();
+                return allProductsFragment;
             case 1:
-                MostViewedFragment mostViewedFragment= new MostViewedFragment();
-                return mostViewedFragment;
+                allProductsFragment= new AllProductsFragment();
+                return allProductsFragment;
             case 2:
-                MostLikedFragment mostLikedFragment= new MostLikedFragment();
-                return mostLikedFragment;
+                allProductsFragment= new AllProductsFragment();
+                return allProductsFragment;
 
             case 3:
-                topProductsFragment= new TopProductsFragment();
-                return topProductsFragment;
+                allProductsFragment= new AllProductsFragment();
+                return allProductsFragment;
             case 4:
-                mostViewedFragment= new MostViewedFragment();
-                return mostViewedFragment;
+                allProductsFragment= new AllProductsFragment();
+                return allProductsFragment;
             case 5:
-                mostLikedFragment= new MostLikedFragment();
-                return mostLikedFragment;
+                allProductsFragment= new AllProductsFragment();
+                return allProductsFragment;
             case 6:
-                topProductsFragment= new TopProductsFragment();
-                return topProductsFragment;
+                allProductsFragment= new AllProductsFragment();
+                return allProductsFragment;
 
             default:
                 return null;

@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="420dp"
             android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|enterAlways"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
 
             <LinearLayout
@@ -58,20 +58,22 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <!-- Your content -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <FrameLayout
-                android:id="@+id/second_tab_frame"
-                android:layout_width="match_parent"
-                android:layout_height="300dp">
 
-            </FrameLayout>
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <FrameLayout
+                    android:id="@+id/second_tab_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="700dp">
+
+                </FrameLayout>
+            </LinearLayout>
+
 
 
 

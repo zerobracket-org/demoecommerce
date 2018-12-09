@@ -17,9 +17,9 @@ class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new TopProductsFragment();
             case 1:
-                return new MostViewedFragment();
+                return new TopProductsFragment();
             case 2:
-                return new MostLikedFragment();
+                return new TopProductsFragment();
 
                 default:
                     return null;

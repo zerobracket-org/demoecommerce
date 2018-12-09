@@ -30,9 +30,12 @@
                 <!-- note that the leading "/" is required for pathPrefix-->
             </intent-filter>
         </activity>
-        <activity android:name=".ItemDetailsViewActivity" />
-        <activity android:name=".CartActivity" />
-        <activity android:name=".SearchActivity" />
+        <activity android:name=".ItemDetailsViewActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".CartActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".SearchActivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
