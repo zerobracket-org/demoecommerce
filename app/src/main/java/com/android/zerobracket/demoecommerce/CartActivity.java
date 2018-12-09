@@ -1,5 +1,6 @@
 package com.android.zerobracket.demoecommerce;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,21 +42,26 @@ public class CartActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_menu, menu);
-        MenuItem cartIconMenuItem = menu.findItem(R.id.cart_count_menu_item);
-        View actionView = cartIconMenuItem.getActionView();
-        View cartImageButtonwMenuItem;
-
-        if (actionView != null) {
-            countTv = actionView.findViewById(R.id.count_tv);
-            cartImageButtonwMenuItem = actionView.findViewById(R.id.cart_ic_image);
-            cartImageButtonwMenuItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-        }
+        getMenuInflater().inflate(R.menu.mycart_menu, menu);
+        MenuItem search = menu.findItem(R.id.search);
+        search.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

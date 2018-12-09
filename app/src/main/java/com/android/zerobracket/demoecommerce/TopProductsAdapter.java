@@ -36,7 +36,8 @@ public class TopProductsAdapter extends RecyclerView.Adapter<TopProductsAdapter.
         viewHolder.btnAddItemToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MainActivity.mCount += 1;
+                MainActivity.countTv.setText(String.valueOf(MainActivity.mCount));
             }
         });
 

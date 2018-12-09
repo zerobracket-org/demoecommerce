@@ -9,11 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private Context context;
+
+    int totalValue = MainActivity.mCount;
 
     CartAdapter(Context context) {
         this.context = context;
@@ -28,11 +31,57 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CartAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final CartAdapter.ViewHolder viewHolder, int i) {
 
-       /* viewHolder.itemImage.setOnClickListener(detailsListener);
-        viewHolder.tvItemName.setOnClickListener(detailsListener);
-        viewHolder.tvprice.setOnClickListener(detailsListener);*/
+       viewHolder.btnView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               context.startActivity(new Intent(context, ItemDetailsViewActivity.class));
+           }
+       });
+        viewHolder.imageButtonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(totalValue>0){
+                    totalValue--;
+                    if(MainActivity.mCount > 0) {
+                        MainActivity.mCount--;
+                        MainActivity.countTv.setText(String.valueOf(MainActivity.mCount));
+                    }
+                    notifyDataSetChanged();
+                }
+            }
+        });
+        viewHolder.buttonLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String currentValue = viewHolder.tvQuantityValue.getText().toString();
+                int temp = Integer.valueOf(currentValue);
+                if(temp>0){
+                    temp--;
+                    if(MainActivity.mCount > 0) {
+                        MainActivity.mCount--;
+                        MainActivity.countTv.setText(String.valueOf(MainActivity.mCount));
+                    }
+                }
+                viewHolder.tvQuantityValue.setText(String.valueOf(temp));
+            }
+        });
+        viewHolder.buttonRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String currentValue = viewHolder.tvQuantityValue.getText().toString();
+                int temp = Integer.valueOf(currentValue);
+                if(temp<10){
+                    temp++;
+                    if(MainActivity.mCount <10) {
+                        MainActivity.mCount++;
+                        MainActivity.countTv.setText(String.valueOf(MainActivity.mCount));
+                    }
+                }
+                viewHolder.tvQuantityValue.setText(String.valueOf(temp));
+            }
+        });
 
     }
 
@@ -45,20 +94,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 5;
+        return totalValue;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView itemImage;
-        TextView tvItemName, tvprice;
-        Button btnAddItemToCart;
+
+        ImageButton buttonLeft, buttonRight, imageButtonDelete ;
+        TextView tvQuantityValue; Button btnView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            /*itemImage = itemView.findViewById(R.id.itemImage);
-            tvItemName = itemView.findViewById(R.id.tvItemName);
-            tvprice = itemView.findViewById(R.id.tvprice);
-            btnAddItemToCart = itemView.findViewById(R.id.btnAddItemToCart);*/
+            buttonLeft = itemView.findViewById(R.id.buttonLeft);
+            tvQuantityValue = itemView.findViewById(R.id.tvQuantityValue);
+            buttonRight = itemView.findViewById(R.id.buttonRight);
+            imageButtonDelete = itemView.findViewById(R.id.imageButtonDelete);
+            btnView = itemView.findViewById(R.id.btnView);
         }
     }
 }

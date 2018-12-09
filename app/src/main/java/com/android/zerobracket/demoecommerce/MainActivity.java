@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TopLayoutFragment topLayoutFragment;
     BottomLayoutFragment bottomLayoutFragment;
 
-    private TextView countTv;
+    public static TextView countTv;
     MenuItem cartIconMenuItem;
-    private int mCount = 0;
+    public static int mCount = 0;
     private ArrayList<String> productList;
     ViewPager viewPager;
     SectionsPagerAdapter sectionsPagerAdapter;
@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
 
     private void setupDrawerContent(NavigationView navigationView) {
         //revision: this don't works, use setOnChildClickListener() and setOnGroupClickListener() above instead

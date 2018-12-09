@@ -1,5 +1,6 @@
 package com.android.zerobracket.demoecommerce;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,11 +62,13 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         View cartImageButtonwMenuItem;
         if (actionView != null) {
             countTv = actionView.findViewById(R.id.count_tv);
+            countTv.setText(String.valueOf(MainActivity.mCount));
             cartImageButtonwMenuItem = actionView.findViewById(R.id.cart_ic_image);
             cartImageButtonwMenuItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent intent = new Intent(getApplicationContext(), CartActivity.class);
+                    startActivity(intent);
                 }
             });
         }
